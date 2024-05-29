@@ -54,7 +54,7 @@ export function StickyNavbar() {
         }`}
       >
         <Link
-          href="/list-course"
+          href="/profile"
           className="flex items-center"
           onClick={() => handleSetActive("profile")}
         >
