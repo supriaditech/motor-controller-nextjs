@@ -15,8 +15,6 @@ export default function Home() {
     rpmMotor,
   } = useMonitoring();
 
-  // Correctly handle the onChange event for Input
-  // Note: Define the type of event as React.ChangeEvent<HTMLInputElement>
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     const rpmValue = parseInt(value, 10); // Convert the string to an integer
@@ -28,7 +26,7 @@ export default function Home() {
       setRpmMotor(0); // Clear the value if it's not a number
     }
   };
-  // // Get the latest speedRpm value
+
   const latestSpeedRpm =
     speedRpmMotor?.length > 0
       ? speedRpmMotor[speedRpmMotor.length - 1].speedRpm
@@ -37,12 +35,12 @@ export default function Home() {
   return (
     <Master>
       <div className="flex min-h-screen flex-col items-center p-24 gap-4 bg-blue-50">
-        <div className="flex gap-20  h-52 ">
-          <div className=" w-80 ">
+        <div className="flex flex-col gap-10 w-full bg-green-200 justify-center items-center">
+          <div className="w-96 h-40 mb-10 flex flex-col justify-center items-center">
             <div className="font-bold">INPUT PWM</div>
             <Input
               crossOrigin={undefined}
-              className=" !border-gray-900 focus:!border-gray-900 w-full h-20 flex items-center justify-center text-center py-20 text-xl"
+              className="!border-gray-900 focus:!border-gray-900 w-full h-40 flex items-center justify-center text-center text-xl"
               style={{
                 borderWidth: "2px",
                 borderColor: "gray-900",
@@ -55,9 +53,9 @@ export default function Home() {
               }}
             />
           </div>
-          <div className="72 h-full w-80 pb-10 ">
+          <div className="w-96 h-40 pb-10 flex flex-col justify-center items-center">
             <div className="font-bold">Speed Nilai</div>
-            <div className=" h-full w-80 border-2 rounded-md border-black flex justify-center items-center text-xl">
+            <div className="h-full w-full border-2 rounded-md border-black flex justify-center items-center text-xl">
               {latestSpeedRpm}
             </div>
           </div>

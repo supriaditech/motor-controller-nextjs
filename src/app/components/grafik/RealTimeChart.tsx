@@ -32,11 +32,11 @@ export default function RealTimeChart({
 
   const chartOptions: ApexOptions = {
     chart: {
-      type: "line",
+      type: "area",
       height: 350,
       animations: {
         enabled: true,
-        easing: "easeout",
+        easing: "easein",
         dynamicAnimation: {
           speed: 50000,
         },
@@ -89,7 +89,7 @@ export default function RealTimeChart({
         <ReactApexChart
           options={chartOptions}
           series={[{ name: "Motor Speed RPM", data }]}
-          type="line"
+          type="area"
           height={500}
           width={1400}
         />
