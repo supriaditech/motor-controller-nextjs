@@ -6,11 +6,11 @@ import Image from "next/image";
 function Profile() {
   return (
     <Master>
-      <div className="flex min-h-screen flex-col items-center gap-4 p-20 ">
+      <div className="flex min-h-screen flex-col items-center gap-4 p-20 bg-blue-50">
         <div className="text-2xl font-bold p-4 text-black">
           Anggota Kelompok
         </div>
-        <div className="flex flex-wrap justify-center items-center bg-gray-200 w-full p-8 rounded-md gap-10">
+        <div className="flex flex-wrap justify-center items-center bg-blue-200 w-full p-8 rounded-md gap-10">
           <div className="flex justify-center items-center bg-white py-4 px-6 rounded-md gap-4 w-1/4">
             <Image
               src={"/image/image1.jpeg"}

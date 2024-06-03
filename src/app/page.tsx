@@ -18,27 +18,49 @@ export default function Home() {
   // Correctly handle the onChange event for Input
   // Note: Define the type of event as React.ChangeEvent<HTMLInputElement>
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const rpmValue = parseInt(event.target.value, 10); // Convert the string to an integer
-    if (!isNaN(rpmValue) && rpmValue <= 127) {
+    const value = event.target.value;
+    const rpmValue = parseInt(value, 10); // Convert the string to an integer
+    if (!isNaN(rpmValue) && rpmValue <= 255) {
       setRpmMotor(rpmValue); // Set the rpm motor value if it's a valid number and within the range
-    } else if (rpmValue > 127) {
-      setRpmMotor(127); // Set rpm motor to maximum value if input exceeds 127
+    } else if (rpmValue > 255) {
+      setRpmMotor(255); // Set rpm motor to maximum value if input exceeds 255
     } else {
-      setRpmMotor(undefined); // Set to undefined or reset if the conversion fails or field is cleared
+      setRpmMotor(0); // Clear the value if it's not a number
     }
   };
+  // // Get the latest speedRpm value
+  const latestSpeedRpm =
+    speedRpmMotor?.length > 0
+      ? speedRpmMotor[speedRpmMotor.length - 1].speedRpm
+      : 0;
 
   return (
     <Master>
-      <div className="flex min-h-screen flex-col items-center p-24 gap-4">
-        <div className="h-20">
-          <Input
-            crossOrigin={undefined}
-            className="h-20 w-96"
-            label="Nilai rpm"
-            value={rpmMotor}
-            onChange={handleChange} // Use the handleChange function
-          />
+      <div className="flex min-h-screen flex-col items-center p-24 gap-4 bg-blue-50">
+        <div className="flex gap-20  h-52 ">
+          <div className=" w-80 ">
+            <div className="font-bold">INPUT PWM</div>
+            <Input
+              crossOrigin={undefined}
+              className=" !border-gray-900 focus:!border-gray-900 w-full h-20 flex items-center justify-center text-center py-20 text-xl"
+              style={{
+                borderWidth: "2px",
+                borderColor: "gray-900",
+                outline: "none",
+              }}
+              value={rpmMotor}
+              onChange={handleChange}
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+          </div>
+          <div className="72 h-full w-80 pb-10 ">
+            <div className="font-bold">Speed Nilai</div>
+            <div className=" h-full w-80 border-2 rounded-md border-black flex justify-center items-center text-xl">
+              {latestSpeedRpm}
+            </div>
+          </div>
         </div>
         <div className="flex gap-10 w-full justify-center items-center">
           <Button className="w-80" onClick={handleCreatedMonitoring}>

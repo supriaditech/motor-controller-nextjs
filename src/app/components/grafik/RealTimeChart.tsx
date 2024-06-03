@@ -15,7 +15,8 @@ export default function RealTimeChart({
   speedRpmMotor: any[];
 }) {
   const formatDataForChart = (data: any[]): DataPoint[] => {
-    return data.map((item) => ({
+    if (!Array.isArray(data)) return [];
+    return data?.map((item) => ({
       x: new Date(item.createdAt).getTime(),
       y: item.speedRpm,
     }));
@@ -28,30 +29,31 @@ export default function RealTimeChart({
   useEffect(() => {
     setData(formatDataForChart(speedRpmMotor));
   }, [speedRpmMotor]);
+
   const chartOptions: ApexOptions = {
     chart: {
-      type: "bar",
+      type: "line",
       height: 350,
       animations: {
         enabled: true,
-        easing: "linear",
+        easing: "easeout",
         dynamicAnimation: {
           speed: 50000,
         },
       },
       toolbar: {
-        show: true, // Enable the toolbar
+        show: true,
         tools: {
-          download: false, // Disable download tool
-          selection: false, // Disable selection tool
-          zoom: true, // Enable zoom tool
-          zoomin: true, // Enable zoom in tool
-          zoomout: true, // Enable zoom out tool
-          pan: true, // Enable pan tool
-          reset: true, // Enable reset tool
-          customIcons: [], // You can add custom icons if needed
+          download: false,
+          selection: false,
+          zoom: true,
+          zoomin: true,
+          zoomout: true,
+          pan: true,
+          reset: true,
+          customIcons: [],
         },
-        autoSelected: "zoom", // Default tool selection
+        autoSelected: "zoom",
       },
     },
     xaxis: {
@@ -83,13 +85,19 @@ export default function RealTimeChart({
 
   return (
     <>
-      <ReactApexChart
-        options={chartOptions}
-        series={[{ name: "Motor Speed RPM", data }]}
-        type="bar"
-        height={350}
-        width={800}
-      />
+      {data && data.length > 0 ? (
+        <ReactApexChart
+          options={chartOptions}
+          series={[{ name: "Motor Speed RPM", data }]}
+          type="line"
+          height={500}
+          width={1400}
+        />
+      ) : (
+        <div className="h-72 w-full text-center border-2 rounded-md flex justify-center items-center">
+          Data Not Found, pastikan server aktif
+        </div>
+      )}
       <Button onClick={exportToExcel} className="w-80">
         Save to Excel
       </Button>
