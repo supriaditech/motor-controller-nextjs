@@ -12,10 +12,10 @@ type DataPoint = {
 
 export default function RealTimeChart({
   speedRpmMotor = [],
-}: {
-  speedRpmMotor: any[];
-}) {
-  const { handleDelete } = useMonitoring();
+  handleDelete,
+  pesanDelete,
+  loadingDelete,
+}: any) {
   const formatDataForChart = (data: any[]): DataPoint[] => {
     if (!Array.isArray(data)) return [];
     return data?.map((item) => ({
@@ -72,7 +72,7 @@ export default function RealTimeChart({
   // Function to export data to Excel
   const exportToExcel = () => {
     const ws = XLSX.utils.json_to_sheet(
-      speedRpmMotor.map((item) => ({
+      speedRpmMotor.map((item: any) => ({
         ID: item.id,
         "Speed RPM": item.speedRpm,
         "Created At": item.createdAt,
@@ -87,7 +87,7 @@ export default function RealTimeChart({
 
   return (
     <>
-      {data && data.length > 0 ? (
+      {data.length > 0 && (
         <ReactApexChart
           options={chartOptions}
           series={[{ name: "Motor Speed RPM", data }]}
@@ -95,9 +95,11 @@ export default function RealTimeChart({
           height={500}
           width={1400}
         />
-      ) : (
-        <div className="h-72 w-full text-center border-2 rounded-md flex justify-center items-center">
-          Data Not Found, pastikan server aktif
+      )}
+
+      {data.length <= 0 && pesanDelete && (
+        <div className="flex justify-center items-center h-100 w-full">
+          {pesanDelete}
         </div>
       )}
       <div className="flex gap-6">

@@ -13,6 +13,11 @@ export default function Home() {
     speedRpmMotor,
     handleStopMonitoring,
     rpmMotor,
+    lastSpeedRpmMotor,
+    handleResetMonitoring,
+    handleDelete,
+    pesanDelete,
+    loadingDelete,
   } = useMonitoring();
 
   // Correctly handle the onChange event for Input
@@ -29,17 +34,13 @@ export default function Home() {
     }
   };
   // // Get the latest speedRpm value
-  const latestSpeedRpm =
-    speedRpmMotor?.length > 0
-      ? speedRpmMotor[speedRpmMotor.length - 1].speedRpm
-      : 0;
 
   return (
     <Master>
       <div className="flex min-h-screen flex-col items-center p-24 gap-4 bg-blue-50">
         <div className="flex gap-20  h-52 ">
           <div className=" w-80 ">
-            <div className="font-bold">INPUT PWM</div>
+            <div className="font-bold">INPUT RPM</div>
             <Input
               crossOrigin={undefined}
               className=" !border-gray-900 focus:!border-gray-900 w-full h-20 flex items-center justify-center text-center py-20 text-xl"
@@ -58,7 +59,7 @@ export default function Home() {
           <div className="72 h-full w-80 pb-10 ">
             <div className="font-bold">Speed Nilai</div>
             <div className=" h-full w-80 border-2 rounded-md border-black flex justify-center items-center text-xl">
-              {latestSpeedRpm}
+              {lastSpeedRpmMotor ? lastSpeedRpmMotor.speedRpm : 0}
             </div>
           </div>
         </div>
@@ -69,8 +70,16 @@ export default function Home() {
           <Button className="w-80" onClick={handleStopMonitoring}>
             Stop
           </Button>
+          <Button className="w-80" onClick={handleResetMonitoring}>
+            Reset
+          </Button>
         </div>
-        <RealTimeChart speedRpmMotor={speedRpmMotor} />
+        <RealTimeChart
+          speedRpmMotor={speedRpmMotor}
+          handleDelete={handleDelete}
+          pesanDelete={pesanDelete}
+          loadingDelete={loadingDelete}
+        />
       </div>
     </Master>
   );
