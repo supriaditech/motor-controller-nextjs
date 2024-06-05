@@ -34,16 +34,16 @@ export default function Home() {
     }
   };
   // // Get the latest speedRpm value
-
+  console.log("speedRpmMotor", speedRpmMotor);
   return (
     <Master>
-      <div className="flex min-h-screen flex-col items-center p-24 gap-4 bg-blue-50">
-        <div className="flex gap-20  h-52 ">
+      <div className="flex min-h-screen flex-col items-center p-24 gap-4 bg-green-50">
+        <div className=" h-40 ">
           <div className=" w-80 ">
             <div className="font-bold">INPUT RPM</div>
             <Input
               crossOrigin={undefined}
-              className=" !border-gray-900 focus:!border-gray-900 w-full h-20 flex items-center justify-center text-center py-20 text-xl"
+              className=" !border-gray-900 focus:!border-gray-900 w-full h-20 flex items-center justify-center text-center  text-xl"
               style={{
                 borderWidth: "2px",
                 borderColor: "gray-900",
@@ -58,21 +58,24 @@ export default function Home() {
           </div>
           <div className="72 h-full w-80 pb-10 ">
             <div className="font-bold">Speed Nilai</div>
-            <div className=" h-full w-80 border-2 rounded-md border-black flex justify-center items-center text-xl">
+            <div className=" h-12 w-80 border-2 rounded-md border-black flex justify-center items-center text-xl">
               {lastSpeedRpmMotor ? lastSpeedRpmMotor.speedRpm : 0}
             </div>
           </div>
         </div>
         <div className="flex gap-10 w-full justify-center items-center">
-          <Button className="w-80" onClick={handleCreatedMonitoring}>
+          <Button
+            className="w-80 bg-green-500"
+            onClick={handleCreatedMonitoring}
+          >
             Start
           </Button>
-          <Button className="w-80" onClick={handleStopMonitoring}>
+          <Button className="w-80 bg-green-500" onClick={handleStopMonitoring}>
             Stop
           </Button>
-          <Button className="w-80" onClick={handleResetMonitoring}>
+          {/* <Button className="w-80" onClick={handleResetMonitoring}>
             Reset
-          </Button>
+          </Button> */}
         </div>
         <RealTimeChart
           speedRpmMotor={speedRpmMotor}

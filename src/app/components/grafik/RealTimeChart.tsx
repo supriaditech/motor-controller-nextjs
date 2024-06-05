@@ -19,7 +19,7 @@ export default function RealTimeChart({
   const formatDataForChart = (data: any[]): DataPoint[] => {
     if (!Array.isArray(data)) return [];
     return data?.map((item) => ({
-      x: new Date(item.createdAt).getTime(),
+      x: item.seconds,
       y: item.speedRpm,
     }));
   };
@@ -59,7 +59,7 @@ export default function RealTimeChart({
       },
     },
     xaxis: {
-      type: "datetime",
+      type: "numeric",
     },
     dataLabels: {
       enabled: false,
@@ -75,6 +75,7 @@ export default function RealTimeChart({
       speedRpmMotor.map((item: any) => ({
         ID: item.id,
         "Speed RPM": item.speedRpm,
+        "Nilai seconds": item.seconds,
         "Created At": item.createdAt,
         "Updated At": item.updatedAt,
       }))
@@ -87,7 +88,7 @@ export default function RealTimeChart({
 
   return (
     <>
-      {data.length > 0 && (
+      {data.length > 0 ? (
         <ReactApexChart
           options={chartOptions}
           series={[{ name: "Motor Speed RPM", data }]}
@@ -95,18 +96,22 @@ export default function RealTimeChart({
           height={500}
           width={1400}
         />
+      ) : (
+        <div className="flex justify-center items-center h-100 w-full">
+          {pesanDelete ? pesanDelete.message : "data loading..."}
+        </div>
       )}
 
       {data.length <= 0 && pesanDelete && (
         <div className="flex justify-center items-center h-100 w-full">
-          {pesanDelete}
+          {pesanDelete ? pesanDelete.message : "data loading..."}
         </div>
       )}
       <div className="flex gap-6">
-        <Button onClick={exportToExcel} className="w-80">
+        <Button onClick={exportToExcel} className="w-80 bg-green-500">
           Save to Excel
         </Button>
-        <Button onClick={handleDelete} className="w-80">
+        <Button onClick={handleDelete} className="w-80 bg-green-500">
           Delete data
         </Button>
       </div>

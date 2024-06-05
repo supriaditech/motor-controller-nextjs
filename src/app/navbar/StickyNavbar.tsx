@@ -58,16 +58,16 @@ export function StickyNavbar() {
     </ul>
   );
   return (
-    <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 bg-blue-200">
+    <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 bg-green-200">
       <div className="flex items-center justify-between text-blue-gray-900">
-        <Typography
+        {/* <Typography
           as="a"
           href="/"
           className="mr-4 cursor-pointer py-1.5 font-medium "
         >
-          logo
-          {/* <Image src="/image/logo.png" alt="Logo" width={150} height={20} /> */}
-        </Typography>
+          logo */}
+        {/* <Image src="/image/logo.png" alt="Logo" width={150} height={20} /> */}
+        {/* </Typography> */}
         <div className="flex items-center gap-4">
           <div className="mr-4 hidden lg:block">{navList}</div>
           <IconButton
