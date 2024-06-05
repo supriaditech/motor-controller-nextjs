@@ -3,6 +3,7 @@ import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 import * as XLSX from "xlsx";
 import { Button } from "@material-tailwind/react";
+import { useMonitoring } from "../../../../hooks/useMonitoring";
 
 type DataPoint = {
   x: number;
@@ -14,6 +15,7 @@ export default function RealTimeChart({
 }: {
   speedRpmMotor: any[];
 }) {
+  const { handleDelete } = useMonitoring();
   const formatDataForChart = (data: any[]): DataPoint[] => {
     if (!Array.isArray(data)) return [];
     return data?.map((item) => ({
@@ -98,9 +100,14 @@ export default function RealTimeChart({
           Data Not Found, pastikan server aktif
         </div>
       )}
-      <Button onClick={exportToExcel} className="w-80">
-        Save to Excel
-      </Button>
+      <div className="flex gap-6">
+        <Button onClick={exportToExcel} className="w-80">
+          Save to Excel
+        </Button>
+        <Button onClick={handleDelete} className="w-80">
+          Delete data
+        </Button>
+      </div>
     </>
   );
 }

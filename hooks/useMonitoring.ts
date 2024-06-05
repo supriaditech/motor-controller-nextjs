@@ -38,12 +38,21 @@ const useMonitoring = () => {
     setRpmMotor(0);
   };
 
+  const handleDelete = async () => {
+    const api = new Api();
+    api.url = "/motor-control/delete-speed-rpm";
+    const response = await api.call();
+
+    handleStopMonitoring();
+    console.log("iniadlaah respone delete data", response);
+  };
   return {
     handleCreatedMonitoring,
     setRpmMotor,
     speedRpmMotor,
     handleStopMonitoring,
     rpmMotor,
+    handleDelete,
   };
 };
 
