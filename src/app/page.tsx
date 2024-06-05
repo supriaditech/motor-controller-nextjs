@@ -13,6 +13,7 @@ export default function Home() {
     speedRpmMotor,
     handleStopMonitoring,
     rpmMotor,
+    lastSpeedRpmMotor,
   } = useMonitoring();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,25 +28,16 @@ export default function Home() {
     }
   };
 
-  const latestSpeedRpm =
-    speedRpmMotor?.length > 0
-      ? speedRpmMotor[speedRpmMotor.length - 1].speedRpm
-      : 0;
-
+  console.log(lastSpeedRpmMotor, "Speed");
   return (
     <Master>
       <div className="flex min-h-screen flex-col items-center p-24 gap-4 bg-blue-50">
-        <div className="flex flex-col gap-10 w-full bg-green-200 justify-center items-center">
-          <div className="w-96 h-40 mb-10 flex flex-col justify-center items-center">
+        <div className="w-full justify-center items-center flex flex-col px-72">
+          <div className="w-full  mb-10 flex flex-col  items-center px-60  gap-4">
             <div className="font-bold">INPUT PWM</div>
             <Input
               crossOrigin={undefined}
-              className="!border-gray-900 focus:!border-gray-900 w-full h-40 flex items-center justify-center text-center text-xl"
-              style={{
-                borderWidth: "2px",
-                borderColor: "gray-900",
-                outline: "none",
-              }}
+              className="!border-gray-900 focus:!border-gray-900 w-full border-2 h-full flex items-center justify-center text-center text-xl"
               value={rpmMotor}
               onChange={handleChange}
               labelProps={{
@@ -53,11 +45,22 @@ export default function Home() {
               }}
             />
           </div>
-          <div className="w-96 h-40 pb-10 flex flex-col justify-center items-center">
-            <div className="font-bold">Speed Nilai</div>
-            <div className="h-full w-full border-2 rounded-md border-black flex justify-center items-center text-xl">
-              {latestSpeedRpm}
+          {/* <div className="w-full justify-center items-center flex flex-col px-72"> */}
+          <div className="w-full h-40 mb-10 flex flex-col  items-center px-60 ">
+            <div className="h-full w-full border-1 rounded-md border-black flex justify-center items-center text-xl flex-col gap-6">
+              <Image
+                src="/image/levels-scale.png"
+                alt="Logo"
+                width={80}
+                height={20}
+              />
+
+              <div className="font-bold flex">
+                Speed Nilai :{" "}
+                {lastSpeedRpmMotor ? lastSpeedRpmMotor.speedRpm : 0}
+              </div>
             </div>
+            {/* </div> */}
           </div>
         </div>
         <div className="flex gap-10 w-full justify-center items-center">
